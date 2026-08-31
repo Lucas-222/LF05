@@ -13,6 +13,7 @@ public class Silvesterrakete {
         // Erstellung der Variable für die Erdanziehungskraft
         double g = 9.81;
 
+        // Erstellung der Variable für die Zeit durch umwandlung in einen double Wert vom BufferedReader
         System.out.print("Wie viel Zeit benötigt der Raketenkörper? ");
         double time = Double.parseDouble(reader.readLine());
 
@@ -20,10 +21,10 @@ public class Silvesterrakete {
         double v = g * time;
 
         // Ausgabe der Geschwindigkeit in m/s
-        System.out.println(v);
+        System.out.println("Geschwindigkeit in m/s: " + v);
 
-        // Ausgabe der Geschwindigkeit in km/h
-        System.out.println(v * 3.6);
+        // Ausgabe der Geschwindigkeit in km/h (km/h = m/s · 3.6)
+        System.out.println("Geschwindigkeit in km/h: " + (v * 3.6));
 
     }
 

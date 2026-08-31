@@ -12,13 +12,18 @@ public class Fahrenheit {
 
         // Eingabe der Temperatur in Celsius
         System.out.print("In Celsius: ");
-        double cel = Double.parseDouble(reader.readLine());
+        double celsius = Double.parseDouble(reader.readLine());
 
-        // Berechnung der Temperatur in Fahrenheit
-        double result = (cel * ((double) 9 /5)) + 32;
+        /*
+        Berechnung der Temperatur in Fahrenheit.
+        Hier wird 9.0 verwendet, um dem Programm zu zeigen, dass es sich um eine Kommazahl handelt,
+        damit die division möglich ist.
+        Die Formel zur Berechnung von Fahrenheit ist: f = (c · 9 / 5) + 32
+        */
+        double fahrenheit = (celsius * (9.0 / 5.0)) + 32;
 
         // Ausgabe des Ergebnisses
-        System.out.println(result);
+        System.out.println(fahrenheit);
 
     }
 
