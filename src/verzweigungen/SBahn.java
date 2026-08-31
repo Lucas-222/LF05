@@ -5,58 +5,58 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class SBahn {
-    public static String start;
-    public static String end;
-    public static String startLane;
-    public static String startStation;
-    public static String endLane;
-    public static String endStation;
+    public static int minLane = 0;
+    public static int maxLane = 5;
+    public static int minStation = 0;
+    public static int maxStation = 6;
+    public static int zoneBorder = 3;
+    public static int baseCost = 2;
 
-    static void main() {
-        setStartEnd();
-        //validateInput();
-        System.out.println("Kosten: " + calculatePrice(start, end));
-    }
+    public static int calculatePrice( int start, int end ) {
+        int startLane = start / 10;
+        int startStation = start % 10;
+        int endLane = end / 10;
+        int endStation = end % 10;
 
-    static int calculatePrice(int start, int end) {
-        int cost;
-
-        if ( isStationNeighbour() ) {
+        if ( isStationNeighbour( startLane, startStation, endLane, endStation ) ) {
             return 1;
         }
 
         // Default price
-        cost = 2;
+        int cost = baseCost;
 
-        if ( isEndStation(startStation) ) {
+        cost += getCountLaneEnds( startStation, endStation );
+
+        if ( isCrossingBorder( startLane, startStation, endLane, endStation ) ) {
             cost++;
         }
-
-        if ( isEndStation(endStation) ) {
-            cost++;
-        }
-
-        cost += borderCrossings();
 
         return cost;
     }
 
-    public static boolean isStationNeighbour() {
-        // 1. Same lane one station
-        if ( startLane.equals(endLane) ) {
-            if ( Math.abs(Integer.parseInt(startStation) - Integer.parseInt(endStation)) == 1 ) {
+    public static boolean isStationNeighbour( int startLane, int startStation, int endLane, int endStation ) {
+        // Same lane one station apart
+        if ( startLane == endLane ) {
+            // If the difference between the stations is "1"
+            if ( getDifference( startStation, endStation ) == 1 ) {
                 return true;
             }
         }
 
         // Special if one station is "00" | Other must be "X1"
-        if ( start.equals("00") || end.equals("00") ) {
-            return startStation.equals("1") || endStation.equals("1");
+        if ( startLane == minLane || endLane == minLane ) {
+            return startStation == 1 || endStation == 1;
         }
 
         // Special ring
-        if ( startStation.equals("3") && endStation.equals("3") ) {
-            if ( Math.abs(Integer.parseInt(startLane) - Integer.parseInt(endLane)) == 1 ) {
+        if ( startStation == zoneBorder && endStation == zoneBorder ) {
+            // Check if one lane is max and the other is start
+            if ( (startLane == maxLane && endLane == (minLane+1) ) || (endLane == maxLane && startLane == (minLane+1) ) ) {
+                return true;
+            }
+
+            // Check if difference between the lanes is "1"
+            if ( getDifference( startLane, endLane ) == 1 ) {
                 return true;
             }
         }
@@ -64,57 +64,64 @@ public class SBahn {
         return false;
     }
 
-    public static boolean isEndStation(String station) {
-        return station.equals("6") || station.equals("0");
+    public static int getCountLaneEnds( int startStation, int endStation ) {
+        int count = 0;
+
+        if (startStation == maxStation || startStation == minStation) {
+            count++;
+        }
+
+        if (endStation == maxStation || endStation == minStation) {
+            count++;
+        }
+
+        return count;
     }
 
-    public static int borderCrossings() {
-        // Same Lane different station (max 1)
-        if ( startLane.equals(endLane) ) {
-            if ( Integer.parseInt(startStation) <= 3 && Integer.parseInt(endStation) > 3 ) {
-                return 1;
-            } else if ( Integer.parseInt(endStation) <= 3 && Integer.parseInt(startStation) > 3 ) {
-                return 1;
+    public static boolean isCrossingBorder( int startLane, int startStation, int endLane, int endStation ) {
+        // Same Lane different station
+        if ( startLane == endLane ) {
+            if ( startStation <= zoneBorder && endStation > zoneBorder ) {
+                return true;
+            } else if ( endStation <= zoneBorder && startStation > zoneBorder ) {
+                return true;
             }
 
-            return 0;
-        }
-
-        // Different Lane
-        if ( Integer.parseInt(startStation) > 3 && Integer.parseInt(endStation) > 3 ) {
-            return 2;
-        } else if ( Integer.parseInt(startStation) <= 3 && Integer.parseInt(endStation) <= 3 ) {
-            return 0;
+            return false;
         } else {
-            return 1;
+            // Different Lane
+            if (startStation <= zoneBorder && endStation <= zoneBorder) {
+                return false;
+            }
         }
-    }
 
-    static boolean validateInput() {
         return true;
     }
 
-    static void setStartEnd() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.print("Start: ");
-        try {
-            start = reader.readLine();
-        } catch (IOException e) {
-            System.out.println("Fehler bei der Eingabe");
+    public static boolean isInputValid( int start, int end ) {
+        if ( start > maxLane || end > maxLane ) {
+            return false;
         }
 
-        System.out.print("Ende: ");
-        try {
-            end = reader.readLine();
-        } catch (IOException e) {
-            System.out.println("Fehler bei der Eingabe");
+        // Check range
+        if ( start < minLane || start / 10 > maxLane || start % 10 > maxStation || start % 10 < minStation) {
+            return false;
         }
 
-        startLane = String.valueOf(start.charAt(0));
-        startStation = String.valueOf(start.charAt(1));
-        endLane = String.valueOf(end.charAt(0));
-        endStation = String.valueOf(end.charAt(1));
+        if ( end < minLane || end / 10 > maxLane || end % 10 > maxStation || end % 10 < minStation) {
+            return false;
+        }
+
+        // Check if start == end
+        if ( start == end ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    static int getDifference( int start, int end ) {
+        return Math.abs(start - end);
     }
 
 }
