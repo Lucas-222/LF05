@@ -27,7 +27,7 @@ public class SBahnTest {
     }
 
     static Stream<Arguments> data_givenStartEnd_PriceOk() {
-        int anzahlLinien = SBahn.maxLane;
+        int anzahlLinien = SBahn.getMaxLane();
 
         return Stream.of(
                 Arguments.of(11, 12, 1.0),
@@ -60,7 +60,7 @@ public class SBahnTest {
     }
 
     static Stream<Arguments> data_validateInput() {
-        int maxValue = SBahn.maxLane;
+        int maxValue = SBahn.getMaxStation();
 
         return Stream.of(
                 // Negative value

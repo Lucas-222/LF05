@@ -1,16 +1,15 @@
 package verzweigungen;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class SBahn {
-    public static int minLane = 0;
-    public static int maxLane = 5;
-    public static int minStation = 0;
-    public static int maxStation = 6;
-    public static int zoneBorder = 3;
-    public static int baseCost = 2;
+    private final static int minLane = 0;
+    private final static int maxLane = 5;
+    private final static int minStation = 0;
+    private final static int maxStation = 6;
+    private final static int zoneBorder = 3;
+    private final static int baseCost = 2;
+    private final static int singleDestinationCost = 1;
+    private final static int endStationCost = 1;
+    private final static int borderCrossingCost = 1;
 
     public static int calculatePrice( int start, int end ) {
         int startLane = start / 10;
@@ -18,29 +17,21 @@ public class SBahn {
         int endLane = end / 10;
         int endStation = end % 10;
 
-        if ( isStationNeighbour( startLane, startStation, endLane, endStation ) ) {
-            return 1;
-        }
+        // If station is only "1" apart -> the costs are always "1"
+        if ( isStationNeighbour( startLane, startStation, endLane, endStation ) ) return singleDestinationCost;
 
-        // Default price
-        int cost = baseCost;
-
-        cost += getCountLaneEnds( startStation, endStation );
-
-        if ( isCrossingBorder( startLane, startStation, endLane, endStation ) ) {
-            cost++;
-        }
-
-        return cost;
+        // Cost is base cost + (end stations count * end station cost) + border crossing cost
+        return
+                baseCost +
+                        (getCountLaneEnds( startStation, endStation ) * endStationCost) +
+                        (isCrossingBorder( startLane, startStation, endLane, endStation ) ? borderCrossingCost : 0);
     }
 
-    public static boolean isStationNeighbour( int startLane, int startStation, int endLane, int endStation ) {
+    private static boolean isStationNeighbour( int startLane, int startStation, int endLane, int endStation ) {
         // Same lane one station apart
         if ( startLane == endLane ) {
             // If the difference between the stations is "1"
-            if ( getDifference( startStation, endStation ) == 1 ) {
-                return true;
-            }
+            return getDifference( startStation, endStation ) == 1;
         }
 
         // Special if one station is "00" | Other must be "X1"
@@ -53,18 +44,16 @@ public class SBahn {
             // Check if one lane is max and the other is start
             if ( (startLane == maxLane && endLane == (minLane+1) ) || (endLane == maxLane && startLane == (minLane+1) ) ) {
                 return true;
-            }
-
-            // Check if difference between the lanes is "1"
-            if ( getDifference( startLane, endLane ) == 1 ) {
-                return true;
+            } else {
+                // Check if difference between the lanes is "1"
+                return getDifference(startLane, endLane) == 1;
             }
         }
 
         return false;
     }
 
-    public static int getCountLaneEnds( int startStation, int endStation ) {
+    private static int getCountLaneEnds( int startStation, int endStation ) {
         int count = 0;
 
         if (startStation == maxStation || startStation == minStation) {
@@ -78,24 +67,18 @@ public class SBahn {
         return count;
     }
 
-    public static boolean isCrossingBorder( int startLane, int startStation, int endLane, int endStation ) {
+    private static boolean isCrossingBorder( int startLane, int startStation, int endLane, int endStation ) {
         // Same Lane different station
         if ( startLane == endLane ) {
             if ( startStation <= zoneBorder && endStation > zoneBorder ) {
                 return true;
-            } else if ( endStation <= zoneBorder && startStation > zoneBorder ) {
-                return true;
+            } else {
+                return endStation <= zoneBorder && startStation > zoneBorder;
             }
-
-            return false;
         } else {
             // Different Lane
-            if (startStation <= zoneBorder && endStation <= zoneBorder) {
-                return false;
-            }
+            return startStation > zoneBorder || endStation > zoneBorder;
         }
-
-        return true;
     }
 
     public static boolean isInputValid( int start, int end ) {
@@ -104,24 +87,25 @@ public class SBahn {
         }
 
         // Check range
-        if ( start < minLane || start / 10 > maxLane || start % 10 > maxStation || start % 10 < minStation) {
-            return false;
-        }
-
-        if ( end < minLane || end / 10 > maxLane || end % 10 > maxStation || end % 10 < minStation) {
-            return false;
-        }
+        if ( isOutOfRange( start ) || isOutOfRange( end ) ) return false;
 
         // Check if start == end
-        if ( start == end ) {
-            return false;
-        }
-
-        return true;
+        return start != end;
     }
 
-    static int getDifference( int start, int end ) {
+    private static boolean isOutOfRange( int input ) {
+        return input >= minLane && input / 10 <= maxLane && input % 10 <= maxStation && input % 10 >= minStation;
+    }
+
+    private static int getDifference( int start, int end ) {
         return Math.abs(start - end);
     }
 
+    public static int getMaxStation() {
+        return maxStation;
+    }
+
+    public static int getMaxLane() {
+        return maxLane;
+    }
 }
