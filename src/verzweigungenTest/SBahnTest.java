@@ -24,6 +24,7 @@ public class SBahnTest {
     @MethodSource("data_validateInput")
     void validateInput(int stationA, int stationB, boolean ok) {
         assertEquals(ok, SBahn.isInputValid(stationA, stationB));
+        assertEquals(ok, SBahn.isInputValid(stationB, stationA));
     }
 
     static Stream<Arguments> data_givenStartEnd_PriceOk() {
@@ -60,15 +61,21 @@ public class SBahnTest {
     }
 
     static Stream<Arguments> data_validateInput() {
-        int maxValue = SBahn.getMaxStation();
-
+        int maxStation = SBahn.getMaxStation();
+        int maxLane = SBahn.getMaxLane();
         return Stream.of(
                 // Negative value
                 Arguments.of(-11, 11, false),
                 // Same value
                 Arguments.of(11, 11, false),
                 // Over max value
-                Arguments.of(maxValue+1, 11, false)
+                Arguments.of(maxLane+1, 11, false),
+                Arguments.of(10 + maxStation + 1, 11, false),
+
+                Arguments.of(01, 55, false),
+                Arguments.of(00, 55, true),
+                Arguments.of(11, 12, true),
+                Arguments.of(0, 12, true)
         );
     }
 
