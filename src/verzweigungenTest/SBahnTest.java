@@ -75,7 +75,9 @@ public class SBahnTest {
                 Arguments.of(01, 55, false),
                 Arguments.of(00, 55, true),
                 Arguments.of(11, 12, true),
-                Arguments.of(0, 12, true)
+                Arguments.of(0, 12, true),
+                Arguments.of(00, 12, true),
+                Arguments.of(0, 0, false)
         );
     }
 

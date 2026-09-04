@@ -11,10 +11,6 @@ public class SBahn {
     private final static int endStationCost = 1;
     private final static int borderCrossingCost = 1;
 
-    static void main() {
-        isInputValid(00, 55);
-    }
-
     public static int calculatePrice(int start, int end) {
         int startLane = start / 10;
         int startStation = start % 10;
