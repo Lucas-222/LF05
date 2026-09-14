@@ -28,18 +28,18 @@ public class SBahn {
 
     private static boolean isStationNeighbour(int startLane, int startStation, int endLane, int endStation) {
         // Same lane one station apart
-        if (startLane == endLane) {
+        if (isTheSame(startLane, endLane)) {
             // If the difference between the stations is "1"
             return getDifference(startStation, endStation) == 1;
         }
 
         // Special if one station is "00" | Other must be "X1"
-        if (startLane == minLane || endLane == minLane) {
+        if (isTheSame(startLane, minLane) || isTheSame(endLane, minLane)) {
             return startStation == 1 || endStation == 1;
         }
 
         // Special ring
-        if (startStation == zoneBorder && endStation == zoneBorder) {
+        if (isRing(startStation) && isRing(endStation)) {
             // Check if one lane is max and the other is start
             if ((startLane == maxLane && endLane == (minLane+1)) || (endLane == maxLane && startLane == (minLane+1))) {
                 return true;
@@ -100,6 +100,14 @@ public class SBahn {
         }
 
         return false;
+    }
+
+    private static boolean isRing(int value) {
+        return value == zoneBorder;
+    }
+
+    private static boolean isTheSame(int value1, int value2) {
+        return value1 == value2;
     }
 
     private static int getDifference(int start, int end) {
