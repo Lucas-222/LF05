@@ -1,4 +1,4 @@
-package verzweigungenTest;
+package test.verzweigungen;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

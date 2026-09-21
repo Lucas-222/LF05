@@ -8,6 +8,7 @@ public class Sparvertrag {
 
     static void main() throws IOException {
         do {
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.print("Bitte Kapital angeben: ");
@@ -30,7 +31,7 @@ public class Sparvertrag {
 
                 System.out.println(i + "\t\t" + String.format("%.2f", kapital) + "\t\t\t" + String.format("%.2f", zinsbetrag) + "\t\t" + String.format("%.2f", jahresbetrag));
 
-                kapital += zinsbetrag;
+                kapital = jahresbetrag;
             }
 
             System.out.print("\nNochmal y | n: ");
