@@ -1,24 +1,21 @@
 package eindimensionaleArrays;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import helper.Service;
 
 public class Maxima {
 
-    static void main() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static void main() {
+        double[] numbers = fillArray();
+        double[] maxAndSecondMax = calculateAndReturnMaxAndSecondMax(numbers);
+        output(maxAndSecondMax);
+    }
 
-        System.out.println("Bitte geben sie ein Array bestehend aus Kommazahlen an");
-        System.out.print("Wie viele Werte? ");
-        int length = Integer.parseInt(br.readLine());
-        double[] numbers = new double[length];
+    private static double[] fillArray() {
+        int length = Service.readInt("Wie viele Werte? ");
+        return Service.fillDoubleArray(length, "Wert ", " eingeben", 1);
+    }
 
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.print("Wert " + (i+1) + " eingeben: ");
-            numbers[i] = Double.parseDouble(br.readLine());
-        }
-
+    private static double[] calculateAndReturnMaxAndSecondMax(double[] numbers) {
         double max = numbers[0];
         double secondMax = numbers[0];
         for (int i = 1; i < numbers.length; i++) {
@@ -28,10 +25,12 @@ public class Maxima {
             }
         }
 
-        System.out.println("Größte Zahle: " + max);
-        System.out.println("Zweitgrößte Zahl " + secondMax);
+        return new double[]{max, secondMax};
+    }
 
-
+    private static void output(double[] maxAndSecondMax) {
+        System.out.println("Größte Zahle: " + maxAndSecondMax[0]);
+        System.out.println("Zweitgrößte Zahl " + maxAndSecondMax[1]);
     }
 
 }

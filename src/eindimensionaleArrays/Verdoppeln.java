@@ -1,29 +1,30 @@
 package eindimensionaleArrays;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import helper.Service;
 
 public class Verdoppeln {
 
-    static void main() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static void main() {
+        double[] numbers = fillArray();
+        outputNormalArray(numbers);
+        outputDoubledArray(numbers);
+    }
 
+    private static double[] fillArray() {
         System.out.println("Bitte geben sie ein Array bestehend aus Kommazahlen an");
-        System.out.print("Wie viele Werte? ");
-        int length = Integer.parseInt(br.readLine());
-        double[] numbers = new double[length];
+        int length = Service.readInt("Wie viele Werte? ");
 
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.print("Wert " + (i+1) + " eingeben: ");
-            numbers[i] = Double.parseDouble(br.readLine());
-        }
+        return Service.fillDoubleArray(length, "Wert ", " eingeben ", 1);
+    }
 
+    private static void outputNormalArray(double[] numbers) {
         System.out.println("\nUrsprüngliches Array: ");
         for (double number : numbers) {
             System.out.print(number + "\t");
         }
+    }
 
+    private static void outputDoubledArray(double[] numbers) {
         System.out.println("\n\nVerdoppeltes Array: ");
         for (double number : numbers) {
             System.out.print( (number*2) + "\t");

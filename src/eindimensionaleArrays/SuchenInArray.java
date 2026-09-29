@@ -1,34 +1,18 @@
 package eindimensionaleArrays;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import helper.Service;
 
 public class SuchenInArray {
 
-    static void main() throws IOException {
+    static void main() {
         menu();
     }
 
-    private static void menu() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        double[] numbers = new double[5];
-
+    private static void menu() {
         System.out.println("Bitte geben sie ein Array bestehend aus 5 Kommazahlen an");
-        System.out.print("Wert 1 eingeben: ");
-        numbers[0] = Double.parseDouble(br.readLine());
-        System.out.print("Wert 2 eingeben: ");
-        numbers[1] = Double.parseDouble(br.readLine());
-        System.out.print("Wert 3 eingeben: ");
-        numbers[2] = Double.parseDouble(br.readLine());
-        System.out.print("Wert 4 eingeben: ");
-        numbers[3] = Double.parseDouble(br.readLine());
-        System.out.print("Wert 5 eingeben: ");
-        numbers[4] = Double.parseDouble(br.readLine());
+        double[] numbers = Service.fillDoubleArray(5, "Wert ", " eingeben: ", 1);
 
-        System.out.print("\nNach welcher Zahl wollen sie suchen? ");
-        double searchAfter = Double.parseDouble(br.readLine());
-
+        double searchAfter = Service.readDouble("\nNach welcher Zahl wollen sie suchen? ");
         auswerten(numbers, searchAfter);
     }
 

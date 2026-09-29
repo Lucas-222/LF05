@@ -1,35 +1,29 @@
 package eindimensionaleArrays;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import helper.Service;
 
 public class Balkendiagramm {
 
-    static void main() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static void main() {
+        double[] numbers = fillArray();
+        output(numbers);
+    }
 
-        System.out.print("Wie viele Kandidaten sind noch im Rennen? ");
-        int length = Integer.parseInt(br.readLine());
-        double[] numbers = new double[length];
+    private static double[] fillArray() {
+        int length = Service.readInt("Wie viele Kandidaten sind noch im Rennen? ");
 
         System.out.println("Erfassen sie jetzt die prozentuale Verteilung");
+        return Service.fillDoubleArray(length, "Kandidat ", ": ", 1);
+    }
 
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.print("Kandidat " + (i+1) + ": ");
-            numbers[i] = Double.parseDouble(br.readLine());
-        }
-
-        System.out.println("Ergebnis");
-
+    private static void output(double[] numbers) {
+        System.out.println("\nErgebnis");
         for (double number : numbers) {
             for (int j = 0; j < number; j++) {
                 System.out.print("*");
             }
-            System.out.print(" " + number + "%");
-            System.out.println("");
+            System.out.print(" " + number + "%\n");
         }
-
     }
 
 }

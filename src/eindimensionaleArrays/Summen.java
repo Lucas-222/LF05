@@ -1,24 +1,23 @@
 package eindimensionaleArrays;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import helper.Service;
 
 public class Summen {
 
-    static void main() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static void main(){
+        int[] numbers = fillArray();
+        int[] results = calculate(numbers);
+        output(results);
+    }
 
+    private static int[] fillArray() {
         System.out.println("Bitte geben sie ein Array bestehend aus Ganzzahlen an");
-        System.out.print("Wie viele Werte? ");
-        int length = Integer.parseInt(br.readLine());
-        int[] numbers = new int[length];
+        int length = Service.readInt("Wie viele Werte? ");
 
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.print("Wert " + (i+1) + " eingeben: ");
-            numbers[i] = Integer.parseInt(br.readLine());
-        }
+        return Service.fillIntArray(length, "Wert ", " angeben ", 1);
+    }
 
+    private static int[] calculate(int[] numbers) {
         int countEven = 0;
         int sumEven = 0;
         int countOdd = 0;
@@ -33,11 +32,15 @@ public class Summen {
             }
         }
 
-        System.out.println("Anzahl gerade Zahlen: " + countEven);
-        System.out.println("Summe gerade Zahlen: " + sumEven);
+        return  new int[]{countEven, sumEven, countOdd, sumOdd};
+    }
 
-        System.out.println("Anzahl ungerade Zahlen: " + countOdd);
-        System.out.println("Summe ungerade Zahlen: " + sumOdd);
+    private static void output(int[] results) {
+        System.out.println("Anzahl gerade Zahlen: " + results[0]);
+        System.out.println("Summe gerade Zahlen: " + results[1]);
+
+        System.out.println("Anzahl ungerade Zahlen: " + results[2]);
+        System.out.println("Summe ungerade Zahlen: " + results[3]);
     }
 
 }
