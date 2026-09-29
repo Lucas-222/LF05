@@ -25,9 +25,9 @@ public class BMI {
             System.out.println("Untergewicht.");
         } else if ( ( geschlecht.equals("m") && bmi < 25 ) || ( geschlecht.equals("f") && bmi < 24) ) {
             System.out.println("Normalgewicht");
-        } else if ( ( geschlecht.equals("m") && bmi < 30 ) || ( geschlecht.equals("f") && bmi < 30) ) {
+        } else if (bmi < 30) {
             System.out.println("Übergewicht");
-        } else if ( ( geschlecht.equals("m") && bmi < 40 ) || ( geschlecht.equals("f") && bmi < 40) ) {
+        } else if (bmi < 40) {
             System.out.println("Adipositas");
         } else {
             System.out.println("Starke Adipositas");

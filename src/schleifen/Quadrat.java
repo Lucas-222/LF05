@@ -26,8 +26,7 @@ public class Quadrat {
 
     private static void startAndEnd(int length) {
         for (int i = 1; i <= length - 2; i++) {
-            System.out.print("\n");
-            System.out.print("*");
+            System.out.print("\n*");
             for (int j = 1; j <= length - 2; j++) {
                 System.out.print(" ");
             }
