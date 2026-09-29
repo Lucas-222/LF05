@@ -11,9 +11,7 @@ public class Balkendiagramm {
 
     private static double[] fillArray() {
         int length = Service.readInt("Wie viele Kandidaten sind noch im Rennen? ");
-
-        System.out.println("Erfassen sie jetzt die prozentuale Verteilung");
-        return Service.fillDoubleArray(length, "Kandidat ", ": ", 1);
+        return Service.fillDoubleArray("Erfassen sie jetzt die prozentuale Verteilung", length, "Kandidat ", ": ", 1);
     }
 
     private static void output(double[] numbers) {

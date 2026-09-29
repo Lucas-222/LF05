@@ -65,6 +65,11 @@ public class Service {
         return arr;
     }
 
+    public static String[] fillStringArray(String message, int length, String textBeforeI, String textAfterI, int iModifier) {
+        System.out.println(message);
+        return fillStringArray(length, textBeforeI, textAfterI, iModifier);
+    }
+
     public static int[] fillIntArray(int length, String textBeforeI, String textAfterI, int iModifier) {
         if (length <= 0 || textBeforeI == null || textAfterI == null) {
             throw new InvalidInputException("Bitte eine positive Ganzzahl angeben");
@@ -80,6 +85,11 @@ public class Service {
         return arr;
     }
 
+    public static int[]  fillIntArray(String message, int length, String textBeforeI, String textAfterI, int iModifier) {
+        System.out.println(message);
+        return fillIntArray(length, textBeforeI, textAfterI, iModifier);
+    }
+
     public static double[] fillDoubleArray(int length, String textBeforeI, String textAfterI, int  iModifier) {
         if (length <= 0 || textBeforeI == null || textAfterI == null) {
             throw new InvalidInputException("Bitte eine positive Ganzzahl angeben");
@@ -93,6 +103,11 @@ public class Service {
         }
 
         return arr;
+    }
+
+    public static double[] fillDoubleArray(String message, int length, String textBeforeI, String textAfterI, int iModifier) {
+        System.out.println(message);
+        return fillDoubleArray(length, textBeforeI, textAfterI, iModifier);
     }
 
 }
