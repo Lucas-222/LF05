@@ -12,14 +12,14 @@ public class Maxima {
 
     private static double[] fillArray() {
         int length = Service.readInt("Wie viele Werte? ");
-        return Service.fillDoubleArray(length, "Wert ", " eingeben", 1);
+        return Service.fillDoubleArray(length, "Wert ", " eingeben: ", 1);
     }
 
     private static double[] calculateAndReturnMaxAndSecondMax(double[] numbers) {
         double max = numbers[0];
         double secondMax = numbers[0];
         for (int i = 1; i < numbers.length; i++) {
-            if (max < numbers[i]) {
+            if (max <= numbers[i]) {
                 secondMax = max;
                 max = numbers[i];
             }
@@ -29,7 +29,7 @@ public class Maxima {
     }
 
     private static void output(double[] maxAndSecondMax) {
-        System.out.println("Größte Zahle: " + maxAndSecondMax[0]);
+        System.out.println("\nGrößte Zahle: " + maxAndSecondMax[0]);
         System.out.println("Zweitgrößte Zahl " + maxAndSecondMax[1]);
     }
 
