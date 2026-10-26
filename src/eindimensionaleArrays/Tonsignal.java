@@ -4,7 +4,7 @@ import helper.Service;
 
 public class Tonsignal {
 
-    static void main(String[] args) {
+    static void main() {
         int[] array = fillArray();
         int[] geglaettet = glaetten(array);
         output(geglaettet);

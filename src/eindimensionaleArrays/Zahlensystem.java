@@ -1,12 +1,15 @@
 package eindimensionaleArrays;
 
 import java.util.ArrayList;
+
 public class Zahlensystem {
 
     static void main() {
         // test
         System.out.println(dezimalZuDual(127));
+        System.out.println(dezimalZuDual("127"));
         System.out.println(dualZuDezimal(1010));
+        System.out.println(dualZuDezimal("1010"));
     }
 
     public static int dezimalZuDual(int dezimal) {
@@ -26,6 +29,10 @@ public class Zahlensystem {
         return Integer.parseInt(s.toString());
     }
 
+    public static String dezimalZuDual(String dezimal) {
+        return String.valueOf(dezimalZuDual(Integer.parseInt(dezimal)));
+    }
+
     public static int dualZuDezimal(int dual) {
         int dezimal = 0;
         String s = String.valueOf(dual);
@@ -37,6 +44,10 @@ public class Zahlensystem {
         }
 
         return dezimal;
+    }
+
+    public static String dualZuDezimal(String dual) {
+        return String.valueOf(dualZuDezimal(Integer.parseInt(dual)));
     }
 
 }
