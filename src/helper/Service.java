@@ -1,5 +1,6 @@
 package helper;
 
+import eindimensionaleArrays.Bubblesort;
 import helper.exceptions.InvalidInputException;
 
 import java.io.BufferedReader;
@@ -108,6 +109,30 @@ public class Service {
     public static double[] fillDoubleArray(String message, int length, String textBeforeI, String textAfterI, int iModifier) {
         System.out.println(message);
         return fillDoubleArray(length, textBeforeI, textAfterI, iModifier);
+    }
+
+    public static double getRandomDouble(double min, double max) {
+        return (((max - min) * Math.random()) + min);
+    }
+
+    public static int getRandomInt(int min, int max) {
+        return (int) (((max - min) * Math.random()) + min);
+    }
+
+    public static double[] sort(double[] arr) {
+        return Bubblesort.sort(arr);
+    }
+
+    public static int[] sort(int[] arr) {
+        return Bubblesort.sort(arr);
+    }
+
+    public static double[] reverse(double[] arr) {
+        return Bubblesort.reverse(arr);
+    }
+
+    public static int[] reverse(int[] arr) {
+        return Bubblesort.reverse(arr);
     }
 
 }

@@ -16,8 +16,9 @@ public class Ostern {
     }
 
     public static int[] getOstern(int year) {
-        int day = 0;
+        int day;
         int month;
+
         int m = getM(year);
         int n = getN(year);
 
@@ -27,22 +28,20 @@ public class Ostern {
         int d = (19 * a + m) % 30;
         int e = (2 * b + 4 * c + 6 * d + n) % 7;
 
-        int march = 22 + d + e;
-        int april = d + e - 9;
+        int dayInMarch = 22 + d + e;
+        int dayInApril = d + e - 9;
 
-        if (march <= 31) {
-            day = march;
+        if (dayInMarch <= 31) {
             month = 3;
+            day = dayInMarch;
         } else {
             month = 4;
-            if (isTwentySixth(april)) {
+            if (isTwentySixth(dayInApril)) {
                 day = 19;
-            } else if (isTwentyFifth(april)) {
-                if (d == 28 && e == 6 && ((11 * (m + 1)) % 30 < 19)) {
-                    day = 18;
-                }
+            } else if (isTwentyFifth(dayInApril, d, e, m)) {
+                day = 18;
             } else {
-                day = april;
+                day = dayInApril;
             }
         }
 
@@ -53,8 +52,12 @@ public class Ostern {
         return day == 26;
     }
 
-    static boolean isTwentyFifth(int day) {
-        return day == 25;
+    static boolean isTwentyFifth(int day, int d, int e, int m) {
+        if (day == 25) {
+            return d == 28 && e == 6 && ((11 * (m + 1)) % 30 < 19);
+        }
+
+        return false;
     }
 
     static int getM(int year) {
