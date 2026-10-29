@@ -1,6 +1,7 @@
 package helper;
 
 import eindimensionaleArrays.Bubblesort;
+import eindimensionaleArrays.Zahlensystem;
 import helper.exceptions.InvalidInputException;
 
 import java.io.BufferedReader;
@@ -153,6 +154,22 @@ public class Service {
         }
 
         return false;
+    }
+
+    public static String dezimalZuDual(String dezimal) {
+        return Zahlensystem.dezimalZuDual(dezimal);
+    }
+
+    public static int dezimalZuDual(int dezimal) {
+        return Zahlensystem.dezimalZuDual(dezimal);
+    }
+
+    public static String dualZuDezimal(String dual) {
+        return Zahlensystem.dualZuDezimal(dual);
+    }
+
+    public static int dualZuDezimal(int dual) {
+        return Zahlensystem.dualZuDezimal(dual);
     }
 
 }
