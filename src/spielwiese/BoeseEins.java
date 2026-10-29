@@ -13,18 +13,36 @@ public class BoeseEins {
     protected static final int roundGoal = 11;
     protected static final int goal = 100;
 
-    protected static Player activePlayer = Player.PLAYER1;
+    protected static Player activePlayer = Player.PLAYER2;
 
     static void main() {
-        // initialize player as map<PLayer, Integer>; Integer = points
-        Map<Player, Integer> points = initPlayer();
+        do {
+            game();
+        } while (Service.readString("\nNochmal spielen? (y | n) ").equals("y"));
+    }
+
+    static Map<Player, Integer> initPoints() {
+        return new HashMap<>() {
+            {
+                put(Player.PLAYER1, 0);
+                put(Player.PLAYER2, 0);
+            }
+        };
+    }
+
+    static void game() {
+        // initialize points as map<PLayer, Integer>; Integer = points
+        Map<Player, Integer> points = initPoints();
 
         do {
+            // switch active player
+            activePlayer = activePlayer.equals(Player.PLAYER1) ? Player.PLAYER2 : Player.PLAYER1;
+
             // before game output
             beforeGameOutput(activePlayer);
 
             // add points from round to player
-            points.put(activePlayer, round());
+            points.put(activePlayer, points.get(activePlayer) + round());
 
             // after round output
             afterRoundOutput(activePlayer, points.get(activePlayer));
@@ -34,19 +52,8 @@ public class BoeseEins {
                 afterGameOutput(activePlayer);
             }
 
-            // switch active player
-            activePlayer = activePlayer.equals(Player.PLAYER1) ? Player.PLAYER2 : Player.PLAYER1;
-        } while (Service.readString("\nNochmal spielen? (y | n) ").equals("y"));
+        } while (points.get(activePlayer) < goal);
 
-    }
-
-    static Map<Player, Integer> initPlayer() {
-        return new HashMap<>() {
-            {
-                put(Player.PLAYER1, 0);
-                put(Player.PLAYER2, 0);
-            }
-        };
     }
 
     static int round() {
@@ -64,14 +71,14 @@ public class BoeseEins {
             // get dice roll
             int diceRoll = getDiceRoll();
 
-            // output last dice roll
-            inRoundOutput(diceCount, diceRoll, sum);
-
             // if dice is "1" return 0
             if (diceRoll == 1) return 0;
 
             // else, add dice to sum
             sum += diceRoll;
+
+            // output last dice roll
+            inRoundOutput(diceCount, diceRoll, sum);
 
             // if round goal is reached, another dice roll is optional
             if (sum >= roundGoal) {
@@ -87,7 +94,7 @@ public class BoeseEins {
     }
 
     static void beforeGameOutput(Player activePlayer) {
-        System.out.println("Spieler " +  (activePlayer.equals(Player.PLAYER1) ? "Player 1" : "Player 2"));
+        System.out.println("Spieler " + (activePlayer.equals(Player.PLAYER1) ? "Player 1" : "Player 2"));
     }
 
     static void inRoundOutput(int diceCount, int diceRoll, int sum) {
@@ -95,7 +102,7 @@ public class BoeseEins {
     }
 
     static void afterRoundOutput(Player player, int sum) {
-        System.out.println("Die Summe von Spieler (" + getPLayerAsString(player) + ") nach der Runde ist: " + sum + "\n");
+        System.out.println("Die Summe von (" + getPLayerAsString(player) + ") nach der Runde ist: " + sum + "\n");
     }
 
     static void afterGameOutput(Player winner) {
@@ -103,7 +110,7 @@ public class BoeseEins {
     }
 
     static String getPLayerAsString(Player player) {
-        return player.equals(Player.PLAYER1) ? "Player 1" : "Player 2";
+        return player.equals(Player.PLAYER1) ? "Spieler 1" : "Spieler 2";
     }
 
 }

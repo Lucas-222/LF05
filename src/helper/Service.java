@@ -3,6 +3,7 @@ package helper;
 import eindimensionaleArrays.Bubblesort;
 import eindimensionaleArrays.Zahlensystem;
 import helper.exceptions.InvalidInputException;
+import methoden.Mathe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -170,6 +171,10 @@ public class Service {
 
     public static int dualZuDezimal(int dual) {
         return Zahlensystem.dualZuDezimal(dual);
+    }
+
+    public static double round(double number, int nachKommaStellen) {
+        return Mathe.runden(number, nachKommaStellen);
     }
 
 }
