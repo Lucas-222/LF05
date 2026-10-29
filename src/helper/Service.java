@@ -135,4 +135,24 @@ public class Service {
         return Bubblesort.reverse(arr);
     }
 
+    public static boolean contains(double[] arr, double number) {
+        for (double i : arr) {
+            if (i == number) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean contains(int[] arr, int number) {
+        for (int i : arr) {
+            if (i == number) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

@@ -4,18 +4,19 @@ import helper.Service;
 
 public class Lotto {
     protected static final int min = 1;
-    protected static final int max = 9;
+    protected static final int max = 49;
     protected static final int size = 6;
     protected static final boolean withPuttingBack = false;
 
     static void main() {
         int[] numbers = generateNumbers();
+        int[] sorted = Service.sort(numbers);
         int extra = generateExtra(numbers);
-        output(sort(numbers), extra);
+        output(sorted, extra);
     }
 
     static void output(int[] numbers, int extra) {
-        System.out.println("Mit zurücklegen: " + withPuttingBack);
+        System.out.println("Mit zurücklegen: " + (withPuttingBack ? "ja" : "nein"));
         System.out.print("Zahlen: ");
 
         for (int number : numbers) {
@@ -31,7 +32,7 @@ public class Lotto {
         for (int i = 0; i < size; i++) {
             int temp = Service.getRandomInt(min, max);
 
-            if (!withPuttingBack && contains(numbers, temp)) {
+            if (!withPuttingBack && Service.contains(numbers, temp)) {
                 i--;
             } else {
                 numbers[i] = temp;
@@ -43,20 +44,7 @@ public class Lotto {
 
     static int generateExtra(int[] numbers) {
         int temp = Service.getRandomInt(min, max);
-        return !withPuttingBack && contains(numbers, temp) ? generateExtra(numbers) : temp;
-    }
-
-    static boolean contains(int[] array, int number) {
-        for (int n : array) {
-            if (n == number) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    static int[] sort(int[] numbers) {
-        return Service.sort(numbers);
+        return !withPuttingBack && Service.contains(numbers, temp) ? generateExtra(numbers) : temp;
     }
 
 }
