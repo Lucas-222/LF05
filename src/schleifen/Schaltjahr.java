@@ -8,13 +8,12 @@ public class Schaltjahr {
 
     static void main() {
         do {
+            input();
             calculate();
         } while (Service.readString("\nNochmal spielen? (y | n) ").equals("y"));
     }
 
     static void calculate() {
-        input();
-
         for (int i = startJahr; i <= endJahr; i++) {
             if (isSchaltjahr(i)) {
                 System.out.println(i);

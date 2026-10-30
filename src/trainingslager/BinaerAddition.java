@@ -10,7 +10,7 @@ public class BinaerAddition {
         int number2 = Service.readInt("Zweite Zahl: ");
 
         if (containsNumberOtherThanOneAndZero(number1) || containsNumberOtherThanOneAndZero(number2)) {
-            System.out.println("Zahl beinhaltet falsche Zeichen");
+            System.out.println("Zahlen beinhaltet falsche Zeichen. Nur \"0\" und \"1\" erlaubt");
             return;
         }
 

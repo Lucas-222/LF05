@@ -36,7 +36,7 @@ public class BoeseEins {
 
         do {
             // switch active player
-            activePlayer = activePlayer.equals(Player.PLAYER1) ? Player.PLAYER2 : Player.PLAYER1;
+            switchPlayer();
 
             // before game output
             beforeGameOutput(activePlayer);
@@ -54,6 +54,10 @@ public class BoeseEins {
 
         } while (points.get(activePlayer) < goal);
 
+    }
+
+    static void switchPlayer() {
+        activePlayer = activePlayer.equals(Player.PLAYER1) ? Player.PLAYER2 : Player.PLAYER1;
     }
 
     static int round() {

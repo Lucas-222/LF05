@@ -19,8 +19,6 @@ public class Wurzel {
             System.out.println("Zahl: " + i + ", Wurzel: " + Math.sqrt(i));
         }
 
-
     }
-
 
 }

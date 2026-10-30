@@ -10,16 +10,23 @@ public class Bevoelkerung {
 
     static void main() {
         do {
+            System.out.println("ü?äß2w23");
+            input();
             show();
         } while (Service.readString("\nNochmal spielen? (y | n) ").equals("y"));
     }
 
+    static void input() {
+        anfangsPopulation = Service.readDouble("Bitte die aktuelle Populationsgröße in Milliarden angeben: ");
+        zuwachsProzent = Service.readDouble("Bitte den jährlichen Zuwachs in Prozent eingeben: ");
+        laufzeit = Service.readInt("Bitte die Laufzeit der Prognose in Jahren eingeben: ");
+        nachkommastellen = Service.readInt("Bitte die Anzahl der anzuzeigenden Nachkommastellen eingeben: ");
+    }
+
     static void show() {
-        input();
+        double start = anfangsPopulation;
 
         System.out.println("Jahr\t\tAnfangspopulation\t\tZuwachs\t\tEndpopulation");
-
-        double start = anfangsPopulation;
 
         for (int i = 1; i <= laufzeit; i++) {
             double zuwachs = anfangsPopulation / 100 * zuwachsProzent;
@@ -34,13 +41,6 @@ public class Bevoelkerung {
 
             anfangsPopulation = endPopulation;
         }
-    }
-
-    static void input() {
-        anfangsPopulation = Service.readDouble("Bitte die aktuelle Populationsgröße in Milliarden angeben: ");
-        zuwachsProzent = Service.readDouble("Bitte den jährlichen Zuwachs in Prozent eingeben: ");
-        laufzeit = Service.readInt("Bitte die Laufzeit der Prognose in Jahren eingeben: ");
-        nachkommastellen = Service.readInt("Bitte die Anzahl der anzuzeigenden Nachkommastellen eingeben: ");
     }
 
 }

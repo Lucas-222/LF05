@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class Schaltungsart {
 
-    static void main(String[] args) throws IOException {
+    static void main() throws IOException {
         // Erstellung des BufferedReaders
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

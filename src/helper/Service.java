@@ -28,7 +28,7 @@ public class Service {
     public static int readInt() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
-            return Integer.parseInt(br.readLine());
+            return Integer.parseInt(br.readLine().replace(",", ".").trim());
         } catch (IOException e) {
             throw new InvalidInputException("Bitte eine Ganzzahl angeben");
         }
@@ -42,7 +42,7 @@ public class Service {
     public static double readDouble() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
-            return Double.parseDouble(br.readLine());
+            return Double.parseDouble(br.readLine().replace(",", ".").trim());
         } catch (IOException e) {
             throw new InvalidInputException("Bitte eine Kommazahl oder Ganzzahl angeben");
         }
