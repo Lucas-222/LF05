@@ -1,42 +1,43 @@
 package schleifen;
 
-import java.io.BufferedReader;
+import helper.Service;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Sparvertrag {
+    protected static double startKapital;
+    protected static double zinssatzProzent;
+    protected static int laufzeit;
 
     static void main() throws IOException {
         do {
+            input();
+            show();
+        } while (Service.readString("\nNochmal spielen? (y | n) ").equals("y"));
+    }
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    static void input() {
+        startKapital = Service.readDouble("Bitte Kapital angeben: ");
+        zinssatzProzent =  Service.readDouble("Bitte Zinssatz angeben: ");
+        laufzeit = Service.readInt("Laufzeit: ");
+    }
 
-            System.out.print("Bitte Kapital angeben: ");
-            double kapital = Double.parseDouble(reader.readLine());
+    static void show() {
+        System.out.println("Jahr\t\tAnfangskapital\t\t\tZinsbetrag\t\tJahresendbetrag");
 
-            System.out.print("Bitte Zinssatz angeben: ");
-            double zinssatz = Double.parseDouble(reader.readLine());
+        for (int i = 1; i <= laufzeit; i++) {
+            double zinsen = startKapital / 100 * zinssatzProzent;
+            double endKapital = startKapital + zinsen;
 
-            System.out.print("Bitte Laufzeit in Jahren angeben: ");
-            double laufzeit = Double.parseDouble(reader.readLine());
+            System.out.println(
+                    i + "\t\t\t" +
+                    Service.round(startKapital, 2) + "\t\t\t\t\t" +
+                    Service.round(zinsen, 2) + "\t\t\t" +
+                    Service.round(endKapital, 2)
+            );
 
-            double jahresbetrag;
-            double zinsbetrag;
-
-            System.out.println("Jahr\tAnfangskapital\tZinsbetrag\tJahresendbetrag");
-
-            for (int i = 1; i <= laufzeit; i++) {
-                zinsbetrag = kapital / 100 * zinssatz;
-                jahresbetrag = kapital + zinsbetrag;
-
-                System.out.println(i + "\t\t" + String.format("%.2f", kapital) + "\t\t\t" + String.format("%.2f", zinsbetrag) + "\t\t" + String.format("%.2f", jahresbetrag));
-
-                kapital = jahresbetrag;
-            }
-
-            System.out.print("\nNochmal y | n: ");
-            if (!reader.readLine().equals("y")) return;
-        } while (true);
+            startKapital = endKapital;
+        }
     }
 
 }

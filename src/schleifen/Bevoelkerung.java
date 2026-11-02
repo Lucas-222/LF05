@@ -10,7 +10,6 @@ public class Bevoelkerung {
 
     static void main() {
         do {
-            System.out.println("ü?äß2w23");
             input();
             show();
         } while (Service.readString("\nNochmal spielen? (y | n) ").equals("y"));
@@ -33,7 +32,7 @@ public class Bevoelkerung {
             double endPopulation = anfangsPopulation + zuwachs;
 
             System.out.println(
-                    Service.round(laufzeit, nachkommastellen) + "\t\t\t" +
+                    Service.round(i, nachkommastellen) + "\t\t\t" +
                     Service.round(anfangsPopulation, nachkommastellen) + "\t\t\t\t" +
                     Service.round(zuwachs, nachkommastellen) + "\t\t" +
                     Service.round(endPopulation, nachkommastellen) + (start / 100 * 20 + start < endPopulation ? "*" : "")
