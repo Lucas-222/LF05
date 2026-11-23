@@ -3,75 +3,51 @@ package mehrdimensionaleArrays;
 import helper.Service;
 
 public class Kino {
-    private static final String[][] saal = erzeugenSaal();
+    private static final String reserved = "X";
+    private static final String free = "O";
 
     static void main() {
-        do {
-            String option = Service.readString("Was möchtest du machen? [a = anzeigen, r = reservieren, s = stornieren]");
+        String[][] saal = erzeugenSaal();
 
-            switch (option) {
-                case "a": anzeigenSaal(); break;
-                case "r": reservierenPlatz(); break;
-                case "s": stornierenPlatz(); break;
+        while (true) {
+            switch (Service.readString("\nWas möchtest du machen? [r = reservieren, s = stornieren, b = beenden] ")) {
+                case "r": reservierungAendern(saal, reserved); break;
+                case "s": reservierungAendern(saal, free); break;
+                case "b": return;
+                default: Service.error("Keine valide Option angegeben bitte nochmal\n"); break;
             }
-
-        } while (Service.readString("Noch etwas machen? ").equals("y"));
-
-
+        }
     }
 
     private static String[][] erzeugenSaal() {
+        System.out.println("Eingabe der größe des Kinos");
+
         int rows = Service.readInt("Anzahl Reihen: ");
         int seats = Service.readInt("Anzahl Sitze pro Reihe: ");
 
-        String[][] saal = new String[rows][seats];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < seats; j++) {
-                saal[i][j] = "O";
-            }
-        }
-
-        return saal;
+        return Service.fillTwoDimensionalArray(rows, seats, free);
     }
 
-    private static void anzeigenSaal() {
-        for (String[] row : saal) {
-            for (String seat : row) {
-                System.out.print(seat + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    private static void reservierenPlatz() {
+    private static void reservierungAendern(String[][] saal, String symbol) {
         do {
-            int row = Service.readInt("Welche Reihe? ");
-            int seat = Service.readInt("Anzahl Sitze pro Reihe? ");
+            int row = Service.readInt("\nWelche Reihe? ") - 1;
+            int seat = Service.readInt("Welcher Sitz? ") - 1;
 
-            if (saal[row][seat].equals("O")) {
-                saal[row][seat] = "X";
+            if (isOutOfBound(saal, row, seat)) {
+                Service.error("Platz außerhalb des Saales!\n");
+            } else if (saal[row][seat].equals(symbol)) {
+                Service.error("Platz ist bereits " + (symbol.equals(free) ? "nicht " : "") + "reserviert");
             } else {
-                System.out.println("Platz bereits reserviert");
+                saal[row][seat] = symbol;
             }
 
-            anzeigenSaal();
-        } while (Service.readString("Noch ein Platz reservieren? ").equals("y"));
+            Service.printTwoDimensionalArray("\nSaal:", saal);
 
+        } while (Service.readString("\nWeitere" + (symbol.equals(reserved) ? "n Platz reservieren? " : "Reservierung stornieren ")).equals("y"));
     }
 
-    private static void stornierenPlatz() {
-        int row = Service.readInt("Welche Reihe? ");
-        int seat = Service.readInt("Anzahl Sitze pro Reihe? ");
-
-        if (saal[row][seat].equals("X")) {
-            saal[row][seat] = "0";
-        } else {
-            System.out.println("Platz nicht reserviert");
-        }
-
-        anzeigenSaal();
-
+    private static boolean isOutOfBound(String[][] saal, int rows, int seats) {
+        return rows >= saal.length || seats >= saal[0].length || rows < 0 || seats < 0;
     }
 
 }

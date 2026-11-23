@@ -26,31 +26,43 @@ public class Service {
     }
 
     public static int readInt() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
-            return Integer.parseInt(br.readLine().replace(",", ".").trim());
-        } catch (IOException e) {
-            throw new InvalidInputException("Bitte eine Ganzzahl angeben");
+            return Integer.parseInt(readString());
+        } catch (NumberFormatException e) {
+            error("Bitte eine Ganzzahl angeben");
+            return readInt();
         }
     }
 
     public static int readInt(String message) {
         System.out.print(message);
-        return readInt();
+
+        try {
+            return Integer.parseInt(readString());
+        } catch (NumberFormatException e) {
+            error("Bitte eine Ganzzahl angeben");
+            return readInt(message);
+        }
     }
 
     public static double readDouble() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
-            return Double.parseDouble(br.readLine().replace(",", ".").trim());
-        } catch (IOException e) {
-            throw new InvalidInputException("Bitte eine Kommazahl oder Ganzzahl angeben");
+            return Double.parseDouble(readString());
+        } catch (NumberFormatException e) {
+            error("Bitte eine Kommazahl angeben");
+            return readDouble();
         }
     }
 
     public static double readDouble(String message) {
         System.out.print(message);
-        return readDouble();
+
+        try {
+            return Double.parseDouble(readString());
+        } catch (NumberFormatException e) {
+            error("Bitte eine Kommazahl angeben");
+            return readDouble(message);
+        }
     }
 
     public static String[] fillStringArray(int length, String textBeforeI, String textAfterI, int iModifier) {
@@ -111,6 +123,99 @@ public class Service {
     public static double[] fillDoubleArray(String message, int length, String textBeforeI, String textAfterI, int iModifier) {
         System.out.println(message);
         return fillDoubleArray(length, textBeforeI, textAfterI, iModifier);
+    }
+
+    public static String[][] fillTwoDimensionalArray(int lengthOne, int lengthTwo, String text) {
+        String[][] arr = new String[lengthOne][lengthTwo];
+
+        for (int i = 0; i < lengthOne; i++) {
+            for (int j = 0; j < lengthTwo; j++) {
+                arr[i][j] = text;
+            }
+        }
+
+        return arr;
+    }
+
+    public static double[][] fillTwoDimensionalArray(int lengthOne, int lengthTwo, double number) {
+        double[][] arr = new double[lengthOne][lengthTwo];
+
+        for (int i = 0; i < lengthOne; i++) {
+            for (int j = 0; j < lengthTwo; j++) {
+                arr[i][j] = number;
+            }
+        }
+
+        return arr;
+    }
+
+    public static int[][] fillTwoDimensionalArray(int lengthOne, int lengthTwo, int number) {
+        int[][] arr = new int[lengthOne][lengthTwo];
+
+        for (int i = 0; i < lengthOne; i++) {
+            for (int j = 0; j < lengthTwo; j++) {
+                arr[i][j] = number;
+            }
+        }
+
+        return arr;
+    }
+
+    public static String[][] fillTwoDimensionalArray(String message, int lengthOne, int lengthTwo, String text) {
+        System.out.println(message);
+        return fillTwoDimensionalArray(lengthOne, lengthTwo, text);
+    }
+
+    public static double[][] fillTwoDimensionalArray(String message, int lengthOne, int lengthTwo, double number) {
+        System.out.println(message);
+        return fillTwoDimensionalArray(lengthOne, lengthTwo, number);
+    }
+
+    public static int[][] fillTwoDimensionalArray(String message, int lengthOne, int lengthTwo, int number) {
+        System.out.println(message);
+        return fillTwoDimensionalArray(lengthOne, lengthTwo, number);
+    }
+
+    public static void printTwoDimensionalArray(String[][] arr) {
+        for (String[] spalte : arr) {
+            for (String zeile : spalte) {
+                System.out.print(zeile + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printTwoDimensionalArray(double[][] arr) {
+        for (double[] spalte : arr) {
+            for (double zeile : spalte) {
+                System.out.print(zeile + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printTwoDimensionalArray(int[][] arr) {
+        for (int[] spalte : arr) {
+            for (int zeile : spalte) {
+                System.out.print(zeile + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void printTwoDimensionalArray(String message, String[][] arr) {
+        System.out.println(message);
+        printTwoDimensionalArray(arr);
+    }
+
+    public static void printTwoDimensionalArray(String message, double[][] arr) {
+        System.out.println(message);
+        printTwoDimensionalArray(arr);
+    }
+
+    public static void printTwoDimensionalArray(String message, int[][] arr) {
+        System.out.println(message);
+        printTwoDimensionalArray(arr);
     }
 
     public static double getRandomDouble(double min, double max) {
@@ -175,6 +280,20 @@ public class Service {
 
     public static double round(double number, int nachKommaStellen) {
         return Mathe.runden(number, nachKommaStellen);
+    }
+
+    public static void error(String message) {
+        error(message, 25);
+    }
+
+    public static void error(String message, int time) {
+        System.err.println(message);
+
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
