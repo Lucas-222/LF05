@@ -3,17 +3,12 @@ package rekursion;
 public class Fibonacci {
 
     static void main() {
-        fibonacci(0, 30, 1, 0);
+        System.out.println(fibonacci(1, 50, 1, 0));
     }
 
     static int fibonacci(int i, int max, int current, int last) {
-        int number = current + last;
-        i++;
-
-        // for every number in the sequence
-        System.out.println(i + ": " + number);
-
-        return i < max ? fibonacci(i, max, number, current) : number;
+        System.out.println(i + ": " + (last + current));
+        return i < max ? fibonacci(i+1, max, current + last, current) : current + last;
     }
 
 }

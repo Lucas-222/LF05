@@ -2,8 +2,6 @@ package rekursion;
 
 import helper.Service;
 
-import java.util.Locale;
-
 public class Palindrom {
 
     static void main() {
@@ -20,8 +18,7 @@ public class Palindrom {
 
     static String reversed(int i, String reversed, String word) {
         reversed += String.valueOf(word.charAt(i));
-        i--;
-        return i >= 0 ? reversed(i, reversed, word) : reversed;
+        return i > 0 ? reversed(i-1, reversed, word) : reversed;
     }
 
 }
