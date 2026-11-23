@@ -8,11 +8,7 @@ public class Palindrom {
         String word = Service.readString("Wort: ");
         String reversed = reversed(word.length()-1, "", word.toLowerCase());
 
-        if (word.equals(reversed)) {
-            System.out.println("Palindrom");
-        } else {
-            System.out.println("Kein Palindrom");
-        }
+        System.out.println((!word.equals(reversed) ? "Kein" : "") + "Palindrom");
 
     }
 
