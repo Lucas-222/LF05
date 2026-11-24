@@ -9,9 +9,7 @@ public class Fakultaet {
     }
 
     static int loop(int sum, int i, int number) {
-        sum *= i;
-        i++;
-        return i <= number ? loop(sum, i, number) : sum;
+        return i < number ? loop(sum*i, i+1, number) : sum*i;
     }
 
 }

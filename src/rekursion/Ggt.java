@@ -9,7 +9,6 @@ public class Ggt {
         int number2 = Service.readInt("Zahl 2: ");
 
         System.out.println(getGgt(number1, number2));
-
     }
 
     static int getGgt(int number1, int number2) {
