@@ -16,13 +16,21 @@ public class Service {
         try {
             return br.readLine();
         } catch (IOException e) {
-            throw new InvalidInputException("Die Eingabe konnte nicht verarbeitet werden");
+            error("Die Eingabe konnte nicht verarbeitet werden");
+            return readString();
         }
     }
 
     public static String readString(String message) {
         System.out.print(message);
-        return readString();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            return br.readLine();
+        } catch (IOException e) {
+            error("Die Eingabe konnte nicht verarbeitet werden");
+            return readString(message);
+        }
     }
 
     public static int readInt() {
@@ -240,6 +248,16 @@ public class Service {
 
     public static int[] reverse(int[] arr) {
         return Bubblesort.reverse(arr);
+    }
+
+    public static boolean contains(String[] arr, String text) {
+        for (String s : arr) {
+            if (s.equals(text)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static boolean contains(double[] arr, double number) {

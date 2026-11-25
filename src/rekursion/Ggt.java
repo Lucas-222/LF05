@@ -12,7 +12,7 @@ public class Ggt {
     }
 
     static int getGgt(int number1, int number2) {
-        return number1 % number2 == 0 ? number2 : getGgt(number2, number1 % number2);
+        return number1 % number2 != 0 ? getGgt(number2, number1 % number2) : number2;
     }
 
 }
